@@ -1,11 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django Project</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block start %}
     <h1>Welcome to the HTML Home Page</h1>
-</body>
-</html>
+    <a href="/about">Go to About</a>
+    <a href="/contact">Go to Contact</a>
+    <br>
+    {{peoples}}
+    <table>
+        <tr>
+            <th>Serial No.</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Can Vote</th>
+        </tr>
+        {% for person in peoples %}
+        <tr>
+            <td>{{forloop.counter}}
+                {{text|truncatechars:10}}
+            </td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.age }}</td>
+            <td>
+                {% if person.age >= 25%}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>
+        {% if "cucumber" not in vegetables %}
+            <h2>Vegetables</h2>
+            <ul>
+                {% for vegetable in vegetables %}
+                    <li>{{ vegetable }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No vegetables available.</p>
+        {% endif %}
+    </p>
+{% endblock %}
